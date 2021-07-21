@@ -2,8 +2,16 @@ const container = document.getElementById('container');
 const input = document.querySelector('#input');
 const button = document.querySelector('#submit');
 
-
-const search = input.value
+button.addEventListener('click', (e) => {
+    e.preventDefault();
+    getPokemonData(input.value);
+})
+input.addEventListener("keypress", function onEvent(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        getPokemonData(input.value)
+    }
+});
 
 const getPokemonData = async (query) => {
     const url = `https://pokeapi.co/api/v2/pokemon/${query}`;
@@ -15,21 +23,3 @@ const getPokemonData = async (query) => {
     document.getElementById('caption').innerText = pokemon.name
 }
 
-getPokemonData(6)
-
-
-
-
-
-// for (let i = 1; i <= 151; i++) {
-//     const card = document.createElement('div');
-//     const label = document.createElement('span');
-//     label.innerText = `Pokemon: ${pokemon.name[i]}`
-//     const newImg = document.createElement('img')
-//     newImg.src = `${pokemon.sprites.other.dream_world.front_default}`
-//     getPokemonData(i)
-
-//     card.appendChild(newImg)
-//     card.appendChild(label)
-//     container.appendChild(card)
-// }
