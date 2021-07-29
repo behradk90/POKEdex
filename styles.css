@@ -1,19 +1,102 @@
-body{
-    width: 100%;
-    text-align: center;
+*{
+    color: azure;
 }
 
-section{
-    margin: 4em;
+body{
+    width: 100%;
+    height: 120vh;
+    text-align: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)),
+    url("https://wallpaperaccess.com/full/24959.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.7);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.7);
 }
 
 h2{
-    margin: 40px;
+    padding: 30px;
 }
 
-div{
-    display: inline-block;
-    flex-direction: column;
+.search-container{
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
 }
 
+.search-bar{
+    width: 600px;
+    margin: auto;
+    padding: 10px;
+    border-radius: 15px;
+}
 
+.search-button{
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: black;
+}
+
+.stat-container{
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+}
+
+.stat-bar-container{
+    display: block;
+    background-color: rgb(108, 255, 162);
+    margin: 0 10px 20px 10px; 
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.stat-item{
+    background-color: rgb(2, 182, 113);
+    padding: 15px 15px 15px 0;
+    border-radius: 15px;
+}
+
+.stat-name{
+    text-align: left;
+}
+
+.stat-value{
+    text-align: right;
+}
+
+.stat{
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+}
+
+.HP-stat{
+    width: 50%;
+    position: relative;
+}
+
+.attack-stat{
+    width: 90%;
+    position: relative;
+}
+
+.defence-stat{
+    width: 70%;
+    position: relative;
+}
+
+.special-attack-stat{
+    width: 90%;
+    position: relative;
+}
+
+.special-defence-stat{
+    width: 70%;
+    position: relative;
+}
+
+.speed-stat{
+    width: 35%;
+    position: relative;
+}
