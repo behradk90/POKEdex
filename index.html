@@ -18,7 +18,7 @@
 
     <div class="search-container">
         <form action="post">
-            <input class="search-bar" type="text" name="" id="input" placeholder="Find PokeMon">
+            <input class="search-bar" type="text" name="" id="input" placeholder="Find PokeMon by Name or ID">
             <button class="search-button" id="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
@@ -29,50 +29,52 @@
         <h2 id="caption"></h2>
         <p id="type"></p>
 
+        <div class="index-container">
+
+        </div>
 
 
-
-        <div class="stat-container">
+        <div class="stat-container" id="statContainer">
             <div class="stat">
                 <span class="stat-name">HP:</span>
-                <div class="stat-bar-container">
-                    <div class="stat-item HP-stat"></div>
-                </div>
+                <progress max="255" value="127" class="stat-bar-container HP-stat">
+                    <!-- <div class="stat-item HP-stat"></div> -->
+                </progress>
                 <span class="stat-value" id="HP"></span>
             </div>
             <div class="stat">
                 <span class="stat-name">ATK:</span>
-                <div class="stat-bar-container">
-                    <div class="stat-item attack-stat"></div>
-                </div>
+                <progress max="255" value="127" class="stat-bar-container attack-stat">
+                    <!-- <div class="stat-item attack-stat"></div> -->
+                </progress>
                 <span class="stat-value" id="attack"></span>
             </div>
             <div class="stat">
                 <span class="stat-name">DEF:</span>
-                <div class="stat-bar-container">
-                    <div class="stat-item defence-stat"></div>
-                </div>
+                <progress max="255" value="127" class="stat-bar-container defence-stat">
+                    <!-- <div class="stat-item defence-stat"></div> -->
+                </progress>
                 <span class="stat-value" id="defence"></span>
             </div>
             <div class="stat">
                 <span class="stat-name">SP-ATK:</span>
-                <div class="stat-bar-container">
-                    <div class="stat-item special-attack-stat"></div>
-                </div>
+                <progress max="255" value="127" class="stat-bar-container special-attack-stat">
+                    <!-- <div class="stat-item special-attack-stat"></div> -->
+                </progress>
                 <span class="stat-value" id="special-attack"></span>
             </div>
             <div class="stat">
                 <span class="stat-name">SP-DEF:</span>
-                <div class="stat-bar-container">
-                    <div class="stat-item special-defence-stat"></div>
-                </div>
+                <progress max="255" value="127" class="stat-bar-container special-defence-stat">
+                    <!-- <div class="stat-item special-defence-stat"></div> -->
+                </progress>
                 <span class="stat-value" id="special-defence"></span>
             </div>
             <div class="stat">
                 <span class="stat-name">SPD:</span>
-                <div class="stat-bar-container">
-                    <div class="stat-item speed-stat"></div>
-                </div>
+                <progress max="255" value="127" class="stat-bar-container speed-stat">
+                    <!-- <div class="stat-item speed-stat"></div> -->
+                </progress>
                 <span class="stat-value" id="speed"></span>
             </div>
 
