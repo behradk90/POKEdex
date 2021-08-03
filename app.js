@@ -17,15 +17,6 @@ const specialAttackStat = document.querySelector('.special-attack-stat');
 const specialDefenceStat = document.querySelector('.special-defence-stat');
 const speedStat = document.querySelector('.speed-stat');
 
-const kanto = document.querySelector('.kanto')
-const johto = document.querySelector('.johto')
-const hoenn = document.querySelector('.hoenn')
-const sinnoh = document.querySelector('.sinnoh')
-const unova = document.querySelector('.unova')
-const kalos = document.querySelector('.kalos')
-const alola = document.querySelector('.alola')
-const galar = document.querySelector('.galar')
-
 header.addEventListener('click', () => {
     indexContainer.innerHTML = ""
     statContainer.style.display = 'none'
@@ -52,66 +43,34 @@ input.addEventListener("keypress", function onEvent(e) {
 });
 
 
-function indexCard(i) {
-    const pokemon = document.createElement('div');
-    const label = document.createElement('span');
-    label.innerText = `# ${i.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
-    const newImg = document.createElement('img');
-    newImg.src = `${spritesUrl}${i}.png`;
+function indexCard(indexStart, indexEnd) {
+    for (let i = indexStart; i <= indexEnd; i++) {
+        const pokemon = document.createElement('div');
+        const label = document.createElement('span');
+        label.innerText = `# ${i.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
+        const newImg = document.createElement('img');
+        newImg.src = `${spritesUrl}${i}.png`;
 
-    pokemon.appendChild(newImg);
-    pokemon.appendChild(label);
-    indexContainer.appendChild(pokemon);
+        pokemon.appendChild(newImg);
+        pokemon.appendChild(label);
+        indexContainer.appendChild(pokemon);
+
+        pokemon.addEventListener('click', () => {
+            getPokemonData(i)
+            statContainer.style.display = "block"
+            regionContainer.style.display = "none"
+        })
+    }
 }
 
-kanto.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 1; i <= 151; i++) {
-        indexCard(i)
-    }
-})
-johto.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 152; i <= 251; i++) {
-        indexCard(i)
-    }
-})
-hoenn.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 252; i <= 386; i++) {
-        indexCard(i)
-    }
-})
-sinnoh.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 387; i <= 493; i++) {
-        indexCard(i)
-    }
-})
-unova.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 494; i <= 649; i++) {
-        indexCard(i)
-    }
-})
-kalos.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 650; i <= 721; i++) {
-        indexCard(i)
-    }
-})
-alola.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 722; i <= 809; i++) {
-        indexCard(i)
-    }
-})
-galar.addEventListener('click', () => {
-    indexContainer.innerHTML = ""
-    for (let i = 810; i <= 898; i++) {
-        indexCard(i)
-    }
-})
+document.querySelector('.kanto').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(1, 151) })
+document.querySelector('.johto').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(152, 251) })
+document.querySelector('.hoenn').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(252, 386) })
+document.querySelector('.sinnoh').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(387, 493) })
+document.querySelector('.unova').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(494, 649) })
+document.querySelector('.kalos').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(650, 721) })
+document.querySelector('.alola').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(722, 809) })
+document.querySelector('.galar').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(810, 898) })
 
 
 const getPokemonData = async (query) => {
