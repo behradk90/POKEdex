@@ -19,6 +19,7 @@ const speedStat = document.querySelector('.speed-stat');
 
 header.addEventListener('click', () => {
     indexContainer.innerHTML = ""
+    indexCard(1, 151)
     statContainer.style.display = 'none'
     regionContainer.style.display = 'block'
 })
@@ -26,7 +27,7 @@ header.addEventListener('click', () => {
 button.addEventListener('click', (e) => {
     e.preventDefault();
     getPokemonData(input.value);
-    if (input.value) {
+    if (input.value.toLowerCase()) {
         statContainer.style.display = "block"
         regionContainer.style.display = "none"
     }
@@ -34,14 +35,13 @@ button.addEventListener('click', (e) => {
 input.addEventListener("keypress", function onEvent(e) {
     if (e.key === "Enter") {
         e.preventDefault();
-        getPokemonData(input.value);
+        getPokemonData(input.value.toLowerCase());
         if (input.value) {
             statContainer.style.display = "block"
             regionContainer.style.display = "none"
         }
     }
 });
-
 
 function indexCard(indexStart, indexEnd) {
     for (let i = indexStart; i <= indexEnd; i++) {
@@ -50,11 +50,9 @@ function indexCard(indexStart, indexEnd) {
         label.innerText = `# ${i.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
         const newImg = document.createElement('img');
         newImg.src = `${spritesUrl}${i}.png`;
-
         pokemon.appendChild(newImg);
         pokemon.appendChild(label);
         indexContainer.appendChild(pokemon);
-
         pokemon.addEventListener('click', () => {
             getPokemonData(i)
             statContainer.style.display = "block"
@@ -63,14 +61,47 @@ function indexCard(indexStart, indexEnd) {
     }
 }
 
-document.querySelector('.kanto').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(1, 151) })
-document.querySelector('.johto').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(152, 251) })
-document.querySelector('.hoenn').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(252, 386) })
-document.querySelector('.sinnoh').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(387, 493) })
-document.querySelector('.unova').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(494, 649) })
-document.querySelector('.kalos').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(650, 721) })
-document.querySelector('.alola').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(722, 809) })
-document.querySelector('.galar').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(810, 898) })
+indexCard(1, 151)
+document.querySelector('.kanto').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(1, 151)
+    e.target.classList.toggle('active')
+})
+document.querySelector('.johto').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(152, 251)
+    e.target.classList.toggle('active')
+})
+document.querySelector('.hoenn').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(252, 386)
+    e.target.classList.toggle('active')
+})
+document.querySelector('.sinnoh').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(387, 493)
+    e.target.classList.toggle('active')
+})
+document.querySelector('.unova').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(494, 649)
+    e.target.classList.toggle('active')
+})
+document.querySelector('.kalos').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(650, 721)
+    e.target.classList.toggle('active')
+})
+document.querySelector('.alola').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(722, 809)
+    e.target.classList.toggle('active')
+})
+document.querySelector('.galar').addEventListener('click', (e) => {
+    indexContainer.innerHTML = ""
+    indexCard(810, 898)
+    e.target.classList.toggle('active')
+})
 
 
 const getPokemonData = async (query) => {
