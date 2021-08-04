@@ -20,6 +20,7 @@ const speedStat = document.querySelector('.speed-stat');
 header.addEventListener('click', () => {
     indexContainer.innerHTML = ""
     indexCard(1, 151)
+    document.getElementById('kanto').checked = true
     statContainer.style.display = 'none'
     regionContainer.style.display = 'block'
 })
@@ -61,46 +62,40 @@ function indexCard(indexStart, indexEnd) {
     }
 }
 
+
 indexCard(1, 151)
 document.querySelector('.kanto').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(1, 151)
-    e.target.classList.toggle('active')
 })
 document.querySelector('.johto').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(152, 251)
-    e.target.classList.toggle('active')
 })
 document.querySelector('.hoenn').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(252, 386)
-    e.target.classList.toggle('active')
+    // e.target.classList.toggle('active')
 })
 document.querySelector('.sinnoh').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(387, 493)
-    e.target.classList.toggle('active')
 })
 document.querySelector('.unova').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(494, 649)
-    e.target.classList.toggle('active')
 })
 document.querySelector('.kalos').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(650, 721)
-    e.target.classList.toggle('active')
 })
 document.querySelector('.alola').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(722, 809)
-    e.target.classList.toggle('active')
 })
 document.querySelector('.galar').addEventListener('click', (e) => {
     indexContainer.innerHTML = ""
     indexCard(810, 898)
-    e.target.classList.toggle('active')
 })
 
 
@@ -109,7 +104,7 @@ const getPokemonData = async (query) => {
     const pokemon = await res.json();
 
     document.getElementById('img').setAttribute('src', `${spritesUrl}other/official-artwork/${pokemon.id}.png`)
-    document.getElementById('caption').innerText = pokemon.name;
+    document.getElementById('caption').innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
     document.getElementById('type').innerText = `Type: ${pokemon.types.map((type) => type.type.name).join(' / ')}`
     document.getElementById('id').innerText = `# ${pokemon.id.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
     document.getElementById('HP').innerText = `${pokemon.stats[0].base_stat}/255`

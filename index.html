@@ -29,16 +29,24 @@
 
         <div class="region-container">
             <h2>Search By Region:</h2>
-            <div class="region-button-group">
-                <button class="region-button kanto">Kanto</button>
-                <button class="region-button johto">Johto</button>
-                <button class="region-button hoenn">Hoenn</button>
-                <button class="region-button sinnoh">Sinnoh</button>
-                <button class="region-button unova">Unova</button>
-                <button class="region-button kalos">Kalos</button>
-                <button class="region-button alola">Alola</button>
-                <button class="region-button galar">Galar</button>
-            </div>
+            <group class="region-button-group">
+                <input type="radio" id="kanto" name="region" class="region-button kanto active" checked><label
+                    for="kanto">Kanto</label>
+                <input type="radio" id="johto" name="region" class="region-button johto"><label
+                    for="johto">Johto</label>
+                <input type="radio" id="hoenn" name="region" class="region-button hoenn"><label
+                    for="hoenn">Hoenn</label>
+                <input type="radio" id="sinnoh" name="region" class="region-button sinnoh"><label
+                    for="sinnoh">Sinnoh</label>
+                <input type="radio" id="unova" name="region" class="region-button unova"><label
+                    for="unova">Unova</label>
+                <input type="radio" id="kalos" name="region" class="region-button kalos"><label
+                    for="kalos">Kalos</label>
+                <input type="radio" id="alola" name="region" class="region-button alola"><label
+                    for="alola">Alola</label>
+                <input type="radio" id="galar" name="region" class="region-button galar"><label
+                    for="galar">Galar</label>
+            </group>
             <div class="index-container"></div>
         </div>
 
