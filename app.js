@@ -1,4 +1,4 @@
-const url = 'https://pokeapi.co/api/v2/pokemon/'
+const url = 'https://pokeapi.co/api/v2/'
 const spritesUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
 const container = document.getElementById('container');
@@ -8,7 +8,7 @@ const header = document.querySelector('h1')
 
 const input = document.querySelector('#input');
 const button = document.querySelector('#submit');
-const statContainer = document.getElementById('statContainer');
+const pokemonDetailsContainer = document.getElementById('pokemonDetailsContainer');
 
 const HPStat = document.querySelector('.HP-stat');
 const attackStat = document.querySelector('.attack-stat');
@@ -21,7 +21,7 @@ header.addEventListener('click', () => {
     indexContainer.innerHTML = ""
     indexCard(1, 151)
     document.getElementById('kanto').checked = true
-    statContainer.style.display = 'none'
+    pokemonDetailsContainer.style.display = 'none'
     regionContainer.style.display = 'block'
 })
 
@@ -29,7 +29,7 @@ button.addEventListener('click', (e) => {
     e.preventDefault();
     getPokemonData(input.value);
     if (input.value.toLowerCase()) {
-        statContainer.style.display = "block"
+        pokemonDetailsContainer.style.display = "block"
         regionContainer.style.display = "none"
     }
 })
@@ -38,7 +38,7 @@ input.addEventListener("keypress", function onEvent(e) {
         e.preventDefault();
         getPokemonData(input.value.toLowerCase());
         if (input.value) {
-            statContainer.style.display = "block"
+            pokemonDetailsContainer.style.display = "block"
             regionContainer.style.display = "none"
         }
     }
@@ -56,7 +56,8 @@ function indexCard(indexStart, indexEnd) {
         indexContainer.appendChild(pokemon);
         pokemon.addEventListener('click', () => {
             getPokemonData(i)
-            statContainer.style.display = "block"
+            morePokemonData(i)
+            pokemonDetailsContainer.style.display = "block"
             regionContainer.style.display = "none"
         })
     }
@@ -64,54 +65,30 @@ function indexCard(indexStart, indexEnd) {
 
 
 indexCard(1, 151)
-document.querySelector('.kanto').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(1, 151)
-})
-document.querySelector('.johto').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(152, 251)
-})
-document.querySelector('.hoenn').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(252, 386)
-    // e.target.classList.toggle('active')
-})
-document.querySelector('.sinnoh').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(387, 493)
-})
-document.querySelector('.unova').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(494, 649)
-})
-document.querySelector('.kalos').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(650, 721)
-})
-document.querySelector('.alola').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(722, 809)
-})
-document.querySelector('.galar').addEventListener('click', (e) => {
-    indexContainer.innerHTML = ""
-    indexCard(810, 898)
-})
+document.querySelector('.kanto').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(1, 151) })
+document.querySelector('.johto').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(152, 251) })
+document.querySelector('.hoenn').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(252, 386) })
+document.querySelector('.sinnoh').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(387, 493) })
+document.querySelector('.unova').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(494, 649) })
+document.querySelector('.kalos').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(650, 721) })
+document.querySelector('.alola').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(722, 809) })
+document.querySelector('.galar').addEventListener('click', () => { indexContainer.innerHTML = "", indexCard(810, 898) })
 
 
 const getPokemonData = async (query) => {
-    const res = await fetch(`${url}${query}`);
+    const res = await fetch(`${url}pokemon/${query}`);
     const pokemon = await res.json();
 
+
     document.getElementById('img').setAttribute('src', `${spritesUrl}other/official-artwork/${pokemon.id}.png`)
-    document.getElementById('caption').innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+    document.getElementById('nameCaption').innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
     document.getElementById('type').innerText = `Type: ${pokemon.types.map((type) => type.type.name).join(' / ')}`
-    document.getElementById('id').innerText = `# ${pokemon.id.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
+    document.getElementById('idCaption').innerText = `# ${pokemon.id.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
     document.getElementById('HP').innerText = `${pokemon.stats[0].base_stat}/255`
     document.getElementById('attack').innerText = `${pokemon.stats[1].base_stat}/255`
     document.getElementById('defence').innerText = `${pokemon.stats[2].base_stat}/255`
-    document.getElementById('special-attack').innerText = `${pokemon.stats[3].base_stat}/255`
-    document.getElementById('special-defence').innerText = `${pokemon.stats[4].base_stat}/255`
+    document.getElementById('specialAttack').innerText = `${pokemon.stats[3].base_stat}/255`
+    document.getElementById('specialDefence').innerText = `${pokemon.stats[4].base_stat}/255`
     document.getElementById('speed').innerText = `${pokemon.stats[5].base_stat}/255`
 
     HPStat.value = pokemon.stats[0].base_stat
@@ -121,7 +98,25 @@ const getPokemonData = async (query) => {
     specialDefenceStat.value = pokemon.stats[4].base_stat
     speedStat.value = pokemon.stats[5].base_stat
     input.value = ""
-    console.log(pokemon)
+    // console.log(pokemon)
+}
+
+const morePokemonData = async (query) => {
+    const evolution = await fetch(`${url}pokemon-species/${query}`)
+    const evoChain = await evolution.json()
+    const next = await fetch(`${evoChain.evolution_chain.url}`)
+    const nextEvo = await next.json()
+
+    console.log(nextEvo
+    )
+
+    if (evoChain.evolves_from_species) {
+        document.getElementById('evolutionChain').innerText = `Evolves from: ${evoChain.evolves_from_species.name[0].toUpperCase() + evoChain.evolves_from_species.name.slice(1)}`
+    } else {
+        document.getElementById('evolutionChain').innerText = ''
+    }
+    // console.log(nextEvo)
+    // console.log(evoChain)
 }
 
 // getPokemonData(6)

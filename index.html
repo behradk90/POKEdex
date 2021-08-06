@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POKEdex</title>
+    <title>Pokédex</title>
+    <link rel="icon" href="images/favicon1-32x32.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="CSS/all.min.css">
 
@@ -24,7 +25,7 @@
         </form>
     </div>
 
-    <section id="container">
+    <section class="body-container" id="container">
 
 
         <div class="region-container">
@@ -51,11 +52,24 @@
         </div>
 
 
-        <div class="stat-container" id="statContainer">
-            <h2 class="mb-3" id="id"></h2>
-            <img id="img" src="" alt="">
-            <h2 id="caption"></h2>
-            <p id="type"></p>
+        <div class="pokemon-details-container" id="pokemonDetailsContainer">
+
+
+            <div class="title-container">
+                <h2 class="name-caption" id="nameCaption"></h2>
+                <h2 class="id-caption" id="idCaption"></h2>
+                <p id="type"></p>
+            </div>
+            <div class="image-container">
+                <img id="img" src="" alt="">
+            </div>
+
+            <div class="basic-info-container">
+
+
+            </div>
+
+
             <div class="stat">
                 <span class="stat-name">HP:</span>
                 <progress max="255" value="127" class="stat-bar-container HP-stat"></progress>
@@ -74,12 +88,12 @@
             <div class="stat">
                 <span class="stat-name">SP-ATK:</span>
                 <progress max="255" value="127" class="stat-bar-container special-attack-stat"></progress>
-                <span class="stat-value" id="special-attack"></span>
+                <span class="stat-value" id="specialAttack"></span>
             </div>
             <div class="stat">
                 <span class="stat-name">SP-DEF:</span>
                 <progress max="255" value="127" class="stat-bar-container special-defence-stat"></progress>
-                <span class="stat-value" id="special-defence"></span>
+                <span class="stat-value" id="specialDefence"></span>
             </div>
             <div class="stat">
                 <span class="stat-name">SPD:</span>
@@ -87,12 +101,17 @@
                 <span class="stat-value" id="speed"></span>
             </div>
 
+            <div class="evolution-chain" id="evolutionChain"></div>
+
             <div class="basic-info">
 
             </div>
+        </div>
 
     </section>
-
+    <!-- <footer class="footer-section">
+        <p>This site is powered by <a href="https://pokeapi.co/">pokeapi.co</a></p>
+    </footer> -->
 
     <script src="app.js"></script>
 
