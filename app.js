@@ -3,7 +3,8 @@ const spritesUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/spr
 
 const container = document.getElementById('container');
 const indexContainer = document.querySelector('.index-container');
-const regionContainer = document.querySelector('.region-container')
+const regionContainer = document.querySelector('.region-container');
+const errorContainer = document.getElementById('errorContainer')
 const header = document.querySelector('h1')
 
 const input = document.querySelector('#input');
@@ -21,26 +22,19 @@ header.addEventListener('click', () => {
     indexContainer.innerHTML = ""
     indexCard(1, 151)
     document.getElementById('kanto').checked = true
+    document.querySelector('title').innerText = "Pokédex"
     pokemonDetailsContainer.style.display = 'none'
+    errorContainer.style.display = "none"
     regionContainer.style.display = 'block'
 })
-
 button.addEventListener('click', (e) => {
     e.preventDefault();
-    getPokemonData(input.value);
-    if (input.value.toLowerCase()) {
-        pokemonDetailsContainer.style.display = "block"
-        regionContainer.style.display = "none"
-    }
+    getPokemonData(input.value.toLowerCase());
 })
 input.addEventListener("keypress", function onEvent(e) {
     if (e.key === "Enter") {
         e.preventDefault();
         getPokemonData(input.value.toLowerCase());
-        if (input.value) {
-            pokemonDetailsContainer.style.display = "block"
-            regionContainer.style.display = "none"
-        }
     }
 });
 
@@ -77,11 +71,23 @@ document.querySelector('.galar').addEventListener('click', () => { indexContaine
 
 const getPokemonData = async (query) => {
     const res = await fetch(`${url}pokemon/${query}`);
-    const pokemon = await res.json();
+    if (res.status == 404 || res.statusText == 'Not Found') {
+        errorContainer.style.display = "block"
+        pokemonDetailsContainer.style.display = "none"
+        regionContainer.style.display = "none"
+        input.value = ""
+        return
+    } else {
+        pokemonDetailsContainer.style.display = "block"
+        errorContainer.style.display = "none"
+        regionContainer.style.display = "none"
+    }
 
+    const pokemon = await res.json();
 
     document.getElementById('img').setAttribute('src', `${spritesUrl}other/official-artwork/${pokemon.id}.png`)
     document.getElementById('nameCaption').innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+    document.querySelector('title').innerText = `${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} | Pokédex`
     document.getElementById('type').innerText = `Type: ${pokemon.types.map((type) => type.type.name).join(' / ')}`
     document.getElementById('idCaption').innerText = `# ${pokemon.id.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
     document.getElementById('HP').innerText = `${pokemon.stats[0].base_stat}/255`
@@ -90,7 +96,7 @@ const getPokemonData = async (query) => {
     document.getElementById('specialAttack').innerText = `${pokemon.stats[3].base_stat}/255`
     document.getElementById('specialDefence').innerText = `${pokemon.stats[4].base_stat}/255`
     document.getElementById('speed').innerText = `${pokemon.stats[5].base_stat}/255`
-
+    document.getElementById('')
     HPStat.value = pokemon.stats[0].base_stat
     attackStat.value = pokemon.stats[1].base_stat
     defenceStat.value = pokemon.stats[2].base_stat
@@ -102,21 +108,41 @@ const getPokemonData = async (query) => {
 }
 
 const morePokemonData = async (query) => {
-    const evolution = await fetch(`${url}pokemon-species/${query}`)
-    const evoChain = await evolution.json()
-    const next = await fetch(`${evoChain.evolution_chain.url}`)
-    const nextEvo = await next.json()
+    const res = await fetch(`${url}pokemon-species/${query}`)
+    const evolution = await res.json()
+    const nextRes = await fetch(`${evolution.evolution_chain.url}`)
+    const data = await nextRes.json()
+    console.log(data.chain)
 
-    console.log(nextEvo
-    )
+    let evoChain = [];
+    let evoData = data.chain;
 
-    if (evoChain.evolves_from_species) {
-        document.getElementById('evolutionChain').innerText = `Evolves from: ${evoChain.evolves_from_species.name[0].toUpperCase() + evoChain.evolves_from_species.name.slice(1)}`
-    } else {
-        document.getElementById('evolutionChain').innerText = ''
+    do {
+        let numberOfEvolutions = evoData['evolves_to'].length;
+
+        evoChain.push({
+            "species_name": evoData.species.name[0].toUpperCase() + evoData.species.name.slice(1)
+        });
+
+        if (numberOfEvolutions > 1) {
+            for (let i = 1; i < numberOfEvolutions; i++) {
+                evoChain.push({
+                    "species_name": evoData.species.name[0].toUpperCase() + evoData.species.name.slice(1)
+                });
+            }
+        }
+
+        evoData = evoData.evolves_to[0];
+
+    } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
+    for (let i = 0; i < evoChain.length; i++) {
+        if (evoChain.length <= 1) {
+            document.getElementById('evolutionInfo').innerText = 'This Pokemon does not evolve'
+        } else {
+            document.getElementById('evolutionInfo').innerText = evoChain.map((species) => species.species_name).join(' / ')
+        }
+        console.log(evoChain[i].species_name)
     }
-    // console.log(nextEvo)
-    // console.log(evoChain)
 }
 
 // getPokemonData(6)

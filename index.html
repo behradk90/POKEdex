@@ -12,11 +12,14 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <h1>Pokédex</h1>
+    <h1 class="index-return" id="indexReturn">Pokédex</h1>
 
     <div class="search-container">
         <form action="post">
@@ -25,8 +28,12 @@
         </form>
     </div>
 
+
     <section class="body-container" id="container">
 
+        <div class="error-container" id="errorContainer">
+            <h2 class="error-message" id="errorMessage">UH OH! Pokémon not found</h2>
+        </div>
 
         <div class="region-container">
             <h2>Search By Region:</h2>
@@ -65,53 +72,51 @@
             </div>
 
             <div class="basic-info-container">
+                <div class="stat">
+                    <span class="stat-name">HP:</span>
+                    <progress max="255" value="127" class="stat-bar-container HP-stat"></progress>
+                    <span class="stat-value" id="HP"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-name">ATK:</span>
+                    <progress max="255" value="127" class="stat-bar-container attack-stat"></progress>
+                    <span class="stat-value" id="attack"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-name">DEF:</span>
+                    <progress max="255" value="127" class="stat-bar-container defence-stat"></progress>
+                    <span class="stat-value" id="defence"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-name">SP-ATK:</span>
+                    <progress max="255" value="127" class="stat-bar-container special-attack-stat"></progress>
+                    <span class="stat-value" id="specialAttack"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-name">SP-DEF:</span>
+                    <progress max="255" value="127" class="stat-bar-container special-defence-stat"></progress>
+                    <span class="stat-value" id="specialDefence"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-name">SPD:</span>
+                    <progress max="255" value="127" class="stat-bar-container speed-stat"></progress>
+                    <span class="stat-value" id="speed"></span>
+                </div>
 
-
-            </div>
-
-
-            <div class="stat">
-                <span class="stat-name">HP:</span>
-                <progress max="255" value="127" class="stat-bar-container HP-stat"></progress>
-                <span class="stat-value" id="HP"></span>
-            </div>
-            <div class="stat">
-                <span class="stat-name">ATK:</span>
-                <progress max="255" value="127" class="stat-bar-container attack-stat"></progress>
-                <span class="stat-value" id="attack"></span>
-            </div>
-            <div class="stat">
-                <span class="stat-name">DEF:</span>
-                <progress max="255" value="127" class="stat-bar-container defence-stat"></progress>
-                <span class="stat-value" id="defence"></span>
-            </div>
-            <div class="stat">
-                <span class="stat-name">SP-ATK:</span>
-                <progress max="255" value="127" class="stat-bar-container special-attack-stat"></progress>
-                <span class="stat-value" id="specialAttack"></span>
-            </div>
-            <div class="stat">
-                <span class="stat-name">SP-DEF:</span>
-                <progress max="255" value="127" class="stat-bar-container special-defence-stat"></progress>
-                <span class="stat-value" id="specialDefence"></span>
-            </div>
-            <div class="stat">
-                <span class="stat-name">SPD:</span>
-                <progress max="255" value="127" class="stat-bar-container speed-stat"></progress>
-                <span class="stat-value" id="speed"></span>
-            </div>
-
-            <div class="evolution-chain" id="evolutionChain"></div>
-
-            <div class="basic-info">
+                <div class="evolution-container" id="evolutionContainer">
+                    <h2>Evolutions</h2>
+                    <p id="evolutionInfo"></p>
+                </div>
 
             </div>
+
+
         </div>
 
     </section>
-    <!-- <footer class="footer-section">
-        <p>This site is powered by <a href="https://pokeapi.co/">pokeapi.co</a></p>
-    </footer> -->
+    <footer class="footer-section">
+        <p>This site is powered by the <a href="https://pokeapi.co/" target="_blank">pokeapi</a></p>
+    </footer>
 
     <script src="app.js"></script>
 
