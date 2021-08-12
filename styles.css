@@ -130,6 +130,26 @@ label:hover{
     display: block;
 }
 
+/* Evolution chain */
+
+.evolution-chain{
+    display: flex;
+    justify-content: center;
+}
+.evolution-chain div{
+    display: grid;
+    padding: 20px 30px;
+    margin: 10px 40px;
+    background:  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+    border: 2px solid white; 
+    border-radius: 50%;
+}
+.evolution-chain div:hover{
+    cursor: pointer;
+    transform: translateY(-0.25em);
+}
+
+
 /* Stats section */
 
 .pokemon-details-container{
