@@ -187,7 +187,7 @@ const morePokemonData = async (query) => {
             newImg.src = `${spritesUrl}${evoChain[i].pokemon_id.split("/")[6]}.png`;
             pokemon.appendChild(newImg);
             pokemon.appendChild(label);
-            evoContainer.appendChild(pokemon)
+            evoContainer.appendChild(pokemon);
             pokemon.addEventListener('click', () => {
                 getPokemonData(evoChain[i].pokemon_id.split("/")[6])
                 morePokemonData(evoChain[i].pokemon_id.split("/")[6])
