@@ -4,13 +4,16 @@ const spritesUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/spr
 const container = document.getElementById('container');
 const indexContainer = document.querySelector('.index-container');
 const regionContainer = document.querySelector('.region-container');
-const errorContainer = document.getElementById('errorContainer')
-const header = document.querySelector('h1')
-const evoContainer = document.getElementById('evolutionChain')
+const errorContainer = document.getElementById('errorContainer');
+const header = document.querySelector('h1');
+const evoContainer = document.getElementById('evolutionChain');
+const idCaption = document.getElementById('idCaption');
 
 const input = document.querySelector('#input');
 const button = document.querySelector('#submit');
 const pokemonDetailsContainer = document.getElementById('pokemonDetailsContainer');
+const nextPokemon = document.getElementById('nextPokemon');
+const prevPokemon = document.getElementById('previousPokemon');
 
 const HPStat = document.querySelector('.HP-stat');
 const attackStat = document.querySelector('.attack-stat');
@@ -49,10 +52,21 @@ input.addEventListener("keypress", function onEvent(e) {
         morePokemonData(input.value.toLowerCase())
     }
 });
+nextPokemon.addEventListener('click', () => {
+    getPokemonData(Number(idCaption.innerText.split(' ')[1]) + 1)
+    morePokemonData(Number(idCaption.innerText.split(' ')[1]) + 1)
+})
+prevPokemon.addEventListener('click', () => {
+    getPokemonData(Number(idCaption.innerText.split(' ')[1]) - 1)
+    morePokemonData(Number(idCaption.innerText.split(' ')[1]) - 1)
+})
+
+
+
 
 const getPokemonData = async (query) => {
     const res = await fetch(`${url}pokemon/${query}`);
-    if (res.status == 404 || res.statusText == 'Not Found') {
+    if (res.status === 404 || res.statusText === 'Not Found') {
         errorContainer.style.display = "block"
         pokemonDetailsContainer.style.display = "none"
         regionContainer.style.display = "none"
@@ -66,16 +80,19 @@ const getPokemonData = async (query) => {
 
     const pokemon = await res.json();
 
+    const name = pokemon.name
+    const stats = pokemon.stats
+
     document.getElementById('img').setAttribute('src', `${spritesUrl}other/official-artwork/${pokemon.id}.png`)
-    document.getElementById('nameCaption').innerText = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
-    document.querySelector('title').innerText = `${pokemon.name[0].toUpperCase() + pokemon.name.slice(1)} | Pokédex`
+    document.getElementById('nameCaption').innerText = name[0].toUpperCase() + name.slice(1);
+    document.querySelector('title').innerText = `${name[0].toUpperCase() + name.slice(1)} | Pokédex`
     document.getElementById('type').innerText = `Type: ${pokemon.types.map((type) => type.type.name).join(' / ')}`
-    document.getElementById('idCaption').innerText = `# ${pokemon.id.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
-    document.getElementById('HP').innerText = `${pokemon.stats[0].base_stat}/255`
-    document.getElementById('attack').innerText = `${pokemon.stats[1].base_stat}/255`
-    document.getElementById('defence').innerText = `${pokemon.stats[2].base_stat}/255`
-    document.getElementById('specialAttack').innerText = `${pokemon.stats[3].base_stat}/255`
-    document.getElementById('specialDefence').innerText = `${pokemon.stats[4].base_stat}/255`
+    idCaption.innerText = `# ${pokemon.id.toLocaleString('en-US', { minimumIntegerDigits: 3, useGrouping: false })}`
+    document.getElementById('HP').innerText = `${stats[0].base_stat}/255`
+    document.getElementById('attack').innerText = `${stats[1].base_stat}/255`
+    document.getElementById('defence').innerText = `${stats[2].base_stat}/255`
+    document.getElementById('specialAttack').innerText = `${stats[3].base_stat}/255`
+    document.getElementById('specialDefence').innerText = `${stats[4].base_stat}/255`
 
     HPStat.value = pokemon.stats[0].base_stat
     attackStat.value = pokemon.stats[1].base_stat
@@ -125,7 +142,7 @@ const morePokemonData = async (query) => {
     const pokemonDetails = await res.json()
     const nextRes = await fetch(`${pokemonDetails.evolution_chain.url}`)
     const data = await nextRes.json()
-    console.log(data.chain)
+    // console.log(data.chain)
 
     let evoChain = [];
     let evoData = data.chain;
