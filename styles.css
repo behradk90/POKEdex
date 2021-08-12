@@ -47,15 +47,18 @@ h1:hover{
 /* Search section */
 
 .search-container{
-    width: 100%;
-    max-width: 700px;
+    width: 40%;
     margin: auto;
+}
+.form-container{
+    display: grid;
+    grid-template-columns: 2fr 8fr 1fr;
 }
 
 .search-bar{
     color: black;
     width: 600px;
-    margin: auto;
+    margin: 0 10px;
     padding: 10px;
     border: none;
     border-radius: 50px;
@@ -66,6 +69,13 @@ h1:hover{
     border: none;
     border-radius: 50px;
     background-color: rgb(0, 0, 0);
+}
+
+.random{
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+    background: rgb(0, 0, 0);
 }
 
 /* Error message */
@@ -143,12 +153,13 @@ label:hover{
 
 .evolution-chain{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 .evolution-chain div{
     display: grid;
     padding: 20px 30px;
-    margin: 10px 40px;
+    margin: 10px 20px;
     background:  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
     border: 2px solid rgb(240, 227, 227); 
     border-radius: 50%;

@@ -11,6 +11,7 @@ const idCaption = document.getElementById('idCaption');
 
 const input = document.querySelector('#input');
 const button = document.querySelector('#submit');
+const random = document.getElementById('random')
 const pokemonDetailsContainer = document.getElementById('pokemonDetailsContainer');
 const nextPokemon = document.getElementById('nextPokemon');
 const prevPokemon = document.getElementById('previousPokemon');
@@ -60,6 +61,12 @@ prevPokemon.addEventListener('click', () => {
     getPokemonData(Number(idCaption.innerText.split(' ')[1]) - 1)
     morePokemonData(Number(idCaption.innerText.split(' ')[1]) - 1)
 })
+random.addEventListener('click', (e) => {
+    e.preventDefault();
+    const randomGenerator = Math.floor((Math.random() * 898) + 1)
+    getPokemonData(randomGenerator)
+    morePokemonData(randomGenerator)
+})
 
 
 
@@ -93,6 +100,7 @@ const getPokemonData = async (query) => {
     document.getElementById('defence').innerText = `${stats[2].base_stat}/255`
     document.getElementById('specialAttack').innerText = `${stats[3].base_stat}/255`
     document.getElementById('specialDefence').innerText = `${stats[4].base_stat}/255`
+    document.getElementById('speed').innerText = `${stats[5].base_stat}/255`
 
     HPStat.value = pokemon.stats[0].base_stat
     attackStat.value = pokemon.stats[1].base_stat
@@ -101,7 +109,7 @@ const getPokemonData = async (query) => {
     specialDefenceStat.value = pokemon.stats[4].base_stat
     speedStat.value = pokemon.stats[5].base_stat
     input.value = ""
-    console.log(pokemon)
+    // console.log(pokemon)
 }
 
 function indexCard(indexStart, indexEnd) {
@@ -158,8 +166,8 @@ const morePokemonData = async (query) => {
         if (numberOfEvolutions > 1) {
             for (let i = 1; i < numberOfEvolutions; i++) {
                 evoChain.push({
-                    "species_name": evoData.species.name[0].toUpperCase() + evoData.species.name.slice(1),
-                    "pokemon_id": evoData.species.url[0] + evoData.species.url.slice(1)
+                    "species_name": evoData.evolves_to[i].species.name[0].toUpperCase() + evoData.evolves_to[i].species.name.slice(1),
+                    "pokemon_id": evoData.evolves_to[i].species.url[0] + evoData.evolves_to[i].species.url.slice(1)
                 });
             }
         }
@@ -167,6 +175,7 @@ const morePokemonData = async (query) => {
         evoData = evoData.evolves_to[0];
         evoContainer.innerHTML = ""
     } while (!!evoData && evoData.hasOwnProperty('evolves_to'));
+
     for (let i = 0; i < evoChain.length; i++) {
         if (evoChain.length <= 1) {
             document.getElementById('evolutionChain').innerText = 'This Pokemon does not evolve'
@@ -179,7 +188,6 @@ const morePokemonData = async (query) => {
             pokemon.appendChild(newImg);
             pokemon.appendChild(label);
             evoContainer.appendChild(pokemon)
-            // document.getElementById('evolutionInfo').innerText = evoChain.map((species) => species.species_name).join(' / ')
             pokemon.addEventListener('click', () => {
                 getPokemonData(evoChain[i].pokemon_id.split("/")[6])
                 morePokemonData(evoChain[i].pokemon_id.split("/")[6])
