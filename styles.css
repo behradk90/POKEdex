@@ -227,6 +227,7 @@ progress::-webkit-progress-value{
     border-radius: 50px;
     border: 2px solid white;
     overflow: inherit;
+    transition : width 0.5s ease;
 }
 
 .HP-stat::-webkit-progress-value{

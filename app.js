@@ -85,6 +85,7 @@ const getPokemonData = async (query) => {
         regionContainer.style.display = "none"
     }
 
+
     const pokemon = await res.json();
 
     const name = pokemon.name

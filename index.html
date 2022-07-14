@@ -53,6 +53,9 @@
                     for="galar">Galar</label>
             </group>
             <div class="index-container"></div>
+            <div class="error-container" id="errorContainer">
+                <h2 class="error-message" id="errorMessage">UH OH! Pokémon not found</h2>
+            </div>
         </div>
 
 
@@ -74,32 +77,32 @@
             <div class="basic-info-container">
                 <div class="stat">
                     <span class="stat-name">HP:</span>
-                    <progress max="255" value="127" class="stat-bar-container HP-stat"></progress>
+                    <progress max="255" value="0" class="stat-bar-container HP-stat"></progress>
                     <span class="stat-value" id="HP"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-name">ATK:</span>
-                    <progress max="255" value="127" class="stat-bar-container attack-stat"></progress>
+                    <progress max="255" value="0" class="stat-bar-container attack-stat"></progress>
                     <span class="stat-value" id="attack"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-name">DEF:</span>
-                    <progress max="255" value="127" class="stat-bar-container defence-stat"></progress>
+                    <progress max="255" value="0" class="stat-bar-container defence-stat"></progress>
                     <span class="stat-value" id="defence"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-name">SP-ATK:</span>
-                    <progress max="255" value="127" class="stat-bar-container special-attack-stat"></progress>
+                    <progress max="255" value="0" class="stat-bar-container special-attack-stat"></progress>
                     <span class="stat-value" id="specialAttack"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-name">SP-DEF:</span>
-                    <progress max="255" value="127" class="stat-bar-container special-defence-stat"></progress>
+                    <progress max="255" value="0" class="stat-bar-container special-defence-stat"></progress>
                     <span class="stat-value" id="specialDefence"></span>
                 </div>
                 <div class="stat">
                     <span class="stat-name">SPD:</span>
-                    <progress max="255" value="127" class="stat-bar-container speed-stat"></progress>
+                    <progress max="255" value="0" class="stat-bar-container speed-stat"></progress>
                     <span class="stat-value" id="speed"></span>
                 </div>
 
